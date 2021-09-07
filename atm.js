@@ -1,40 +1,70 @@
-const account = require ('./account')
+const PromptSync = require('prompt-sync')();
+const accountData = require ('./account')
+const prompt = require('prompt-sync')();
+// const prompt = ps();
 
 
 function getBalance(){
-    return accountData.balance;
+    console.log(accountData.balance);
+    console.log(runAtm());
 }
 
-function withdraw(balance, withdraw){
-    accountWith = prompUser('Amount to withdraw?');
-    accountData.balance = balance - withdraw;
-    return accountData.balance;
+function withdraw(){
+    var accountWith = parseInt(prompt('Amount to withdraw?'));
+    console.log(accountWith);
+    var newBal = accountData.balance = accountData.balance - accountWith;
+    console.log(newBal);
+    console.log(runAtm()); 
 
 }
-function deposit(balance, deposit){
-    accountDepo = prompUser('Amount to deposit?')
-    let newAccountBalance = balance + deposit;
-    return accountData.balance
+function deposit(){
+    var accountDepo = parseInt(prompt('Amount to deposit?'));
+    console.log(accountDepo) 
+    var newDepoBal = accountData.balance = accountData.balance + accountDepo;
+    console.log(newDepoBal);
+    console.log(runAtm());
 }
 function validatePin(){
-    if (enterPassword === pin){
-    return true;
-    }else{
-        false;
+    const pin = (1234)
+    accountPin = prompt('Enter the 4 digit pin for this account');
+    if (`${accountPin}` == pin){  
+    return runAtm();
     } 
+    else{
+        console.log("Please try again")
+    }
 
 }
 
-const pin = 9876543210;
+function runAtm(){
+    console.log('Welcome to yougotnomoneyATM\nPlease make a selection:\n1. Get Account Balance.\n2. Withdraw from Account\n3. Deposit to Account\n4. End Transaction')
+    let atmMenu = prompt();
+    switch (atmMenu){
+        case '1':
+            getBalance();
+            break;
+        case '2':
+            withdraw();
+            break;
+        case '3':
+            deposit();
+            break;
+        case '4':
+            console.log('Your transaction has been terminated.') 
+            break;
+        default:
+            console.log('Entry isnt an option.\nPlease make another selection.')
+    }
+}
 
-let balance = 4.20;
 
 
 module.exports.getBalance = getBalance;
 module.exports.withdraw = withdraw;
 module.exports.deposit = deposit;
-module.exports.pin = pin;
-module.exports.balance = balance;
+module.exports.validatePin = validatePin;
+module.exports.runAtm = runAtm;
 
-console.log(module)
+
+
 
